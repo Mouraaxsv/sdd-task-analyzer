@@ -1,0 +1,18 @@
+project: TaskAnalyzer
+stage: 3
+runtime: "Python >=3.11"
+inputs:
+  priority: [baixa, média, alta]
+  status: [concluída, pendente, cancelada]
+metrics:
+  - total_tarefas
+  - total_concluidas
+  - total_pendentes
+  - tempo_medio_conclusao_horas
+  - taxa_atraso_percentual
+quality_gates:
+  - python -m pytest tests/test_harness.py -v
+  - docker run --rm taskanalyzer:test
+privacy:
+  persistence: false
+  external_apis: false
